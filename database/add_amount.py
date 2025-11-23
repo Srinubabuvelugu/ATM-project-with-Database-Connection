@@ -12,9 +12,9 @@ class AddAmount:
         try:
             obj_af = AmountFetch(account=self.account)
             current_amount = obj_af.amountFetch()
-            update_amount = current_amount + self._amount
-            update_amount_query = f"UPDATE USERS SET AMOUNT = {update_amount} WHERE ACCOUNT = {self.account};"
-            cursor.execute(update_amount_query)
+            update_amount = int(current_amount) + self._amount
+            update_amount_query = "UPDATE USERS SET AMOUNT = %s WHERE ACCOUNT = %s;"
+            cursor.execute(update_amount_query, (update_amount, self.account))
             database.commit()
             return f"Withdrawal successful and current balence is {update_amount}"
         except Exception as e:

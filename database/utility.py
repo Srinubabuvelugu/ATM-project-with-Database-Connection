@@ -1,7 +1,7 @@
 ## list of tuple to set of accounts
 def list_tuple_accounts_to_set_account(accounts_list:list[tuple]):
     try:
-        accounts = {}
+        accounts = set()
         for tup in accounts_list:
             if type(tup) == tuple:
                 accounts.add(tup[0])
