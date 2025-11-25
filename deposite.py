@@ -8,4 +8,4 @@ def deposite(account:int,amount:int):
         obj_am = AddAmount(account=account, deposite_amount= amount)
         return obj_am.add_amount()
     except Exception as e:
-        return f"Something wrong in atm\deposite.py :{e}"
+        return f"Something wrong in atm/deposite.py :{e}"

@@ -12,7 +12,7 @@ class LoginAccount:
                                     WHERE ACCOUNT = {self.account};"""
             
             cursor.execute(get_password_query)
-            db_password = cursor.fetchall()[0][0]
+            db_password = int(cursor.fetchall()[0][0])
             if db_password:
                 if db_password == self.__password:
                     return True

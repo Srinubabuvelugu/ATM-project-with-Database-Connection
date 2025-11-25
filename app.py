@@ -5,7 +5,9 @@ import withdrawal as w
 import login as log
 import transfer as t
 from exception import *
+# import register
 from register import Register
+from database.database import database, cursor
 #operations
 from database import tables
 operations=(

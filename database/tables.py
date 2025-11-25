@@ -16,18 +16,21 @@ def tables_creation():
                         Account BIGINT NOT NULL,
                         USERNAME VARCHAR(50) NOT NULL,
                         EMAIL VARCHAR(50) NOT NULL UNIQUE,
-                        AMOUNT DOUBLE(10,2),
+                        AMOUNT DOUBLE(10,2) default 0,
                         FOREIGN KEY(ACCOUNT) REFERENCES ACCOUNTS(ACCOUNT)   
                         );"""
         cursor.execute(users_table)
-        transesaction_table = """
-                        CREATE TABLE IF NOT EXISTS TRANSESACTION(
-                        TRANSESATION_ID BIGINT NOT NULL,
-                        ACCOUNT BIGINT NOT NULL UNIQUE,
-                        TRANSESACTION_TYPE VARCHAR(20) NOT NULL,
-                        AMOUNT INT NOT NULL)"""
-
-        cursor.execute(transesaction_table)
+        transaction_table = """
+                CREATE TABLE IF NOT EXISTS TRANSACTIONS(
+                TRANSACTION_ID BIGINT NOT NULL AUTO_INCREMENT,
+                ACCOUNT BIGINT NOT NULL,
+                TRANSACTION_TYPE VARCHAR(20) NOT NULL,
+                AMOUNT DOUBLE(10,2) NOT NULL,
+                PRIMARY KEY(TRANSACTION_ID),
+                FOREIGN KEY(ACCOUNT) REFERENCES ACCOUNTS(ACCOUNT)
+            );
+        """
+        cursor.execute(transaction_table)
         database.commit()
         return True
     except Exception as e:

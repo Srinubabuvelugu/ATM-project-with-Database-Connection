@@ -1,18 +1,36 @@
-import data as d
+from database.amount_fetch import AmountFetch
+from database.database import cursor, database
+from database.add_amount import AddAmount
+from database.reduce_amount import ReduceAmount
+from database.check_account import CheckAccount
 #Transfer function definition
 def transfer(account:int,to_account:int,amount:int):
-    if  d.tab(account=account):
-        if  d.tab(account=to_account):
-            curr_amount=d.ta(account=account,index=2)
-            if curr_amount>=amount:
-                c=d.updt(account=account,index=2)-amount
-                b1=d.updt(account=account,value=c,index=2)
-                b=d.updt(account=account,index=2)+amount
-                e=d.updt(account=account,value=b,index=2)
-                return f"{amount} Transfer successful current balance is {b1}"
+    try:
+        obj_cka = CheckAccount()
+        if obj_cka.check_account_in_database(account=account):
+            if obj_cka.check_account_in_database(to_account):
+                obj_fa = AmountFetch(account=account)
+                curr_amount = obj_fa.amountFetch()
+                if curr_amount >= amount:
+                    obj_ra = ReduceAmount(account=account, withdraw_amount=amount)
+                    reduce_amount_status = obj_ra.reduce_amount(transfer_type="transfer")
+                    obj_add_amount = AddAmount(account=to_account, deposite_amount=amount)
+                    obj_add_amount.add_amount()
+                    return reduce_amount_status
+                else:
+                    return "Insufficient Balance"
             else:
-                return "Insufficient amount"
+                return "Reciver account not found"
         else:
-            return "Reciever not found"
-    else:
-        return "User not found"
+            return "Sender account not found"
+    except Exception as e:
+        return f"Something wrong in atm/transfer.py:{e}"
+                    
+                    
+                    
+
+                    
+
+
+                     
+        
