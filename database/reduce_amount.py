@@ -15,12 +15,12 @@ class ReduceAmount:
             if current_amount >= self.withdraw_amount:
                 # updating the amount in database
                 update_amount = current_amount - self.withdraw_amount
-                update_amount_query = f"UPDATE USERS SET AMOUNT = {update_amount} WHERE ACCOUNT = {self.account};"
-                cursor.execute(update_amount_query)
+                update_amount_query = "UPDATE USERS SET AMOUNT = %s WHERE ACCOUNT = %s;"
+                cursor.execute(update_amount_query, (update_amount, self.account))
                 # adding transaction to transaction table
-                add_transection_query = "INSERT INTO TRANSACTIONS(ACCOUNT, AMOUNT, TYPE) VALUES (%s, %s, %s);"
-                transection_values = (self.account, self.withdraw_amount, "withdrawal")     
-                cursor.execute(add_transection_query, transection_values)
+                add_transaction_query = "INSERT INTO TRANSACTIONS(ACCOUNT, AMOUNT, TRANSACTION_TYPE) VALUES (%s, %s, %s);"
+                transaction_values = (self.account, self.withdraw_amount, "withdrawal")     
+                cursor.execute(add_transaction_query, transaction_values)
                 database.commit()
                 if transfer_type != "transfer":
                     return f"Withdrawal successful and current balence is {update_amount}"

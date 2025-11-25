@@ -9,7 +9,7 @@ database = SQLC.connect(
 )
 
 cursor = database.cursor()
-print("Loaded database.py →", dir())
+# print("Loaded database.py →", dir())
 
 # calling tables creating 
 # tables_creation()

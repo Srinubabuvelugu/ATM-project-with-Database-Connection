@@ -8,11 +8,13 @@ class LoginAccount:
     
     def login_account(self):
         try:
-            get_password_query = f"""SELECT PASSWORD FROM ACCOUNTS 
-                                    WHERE ACCOUNT = {self.account};"""
+            get_password_query = """SELECT PASSWORD FROM ACCOUNTS 
+                                    WHERE ACCOUNT = %s;"""
             
-            cursor.execute(get_password_query)
-            db_password = int(cursor.fetchall()[0][0])
+            cursor.execute(get_password_query, (self.account,))
+            db_password = cursor.fetchall()[0][0]
+            
+            print("This is from database/login_account.py:", db_password, type(db_password))
             if db_password:
                 if db_password == self.__password:
                     return True

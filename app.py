@@ -4,9 +4,10 @@ import deposite
 import withdrawal as w
 import login as log
 import transfer as t
+import ministatement
 from exception import *
 # import register
-from register import Register
+from database.register import Register
 from database.database import database, cursor
 #operations
 from database import tables
@@ -17,7 +18,6 @@ operations=(
     "4. Transfer \n",
     "5. Mini statement \n",
     "6. Logout \n"
-    "7. Register"
 )
 
 #main
@@ -35,7 +35,7 @@ if __name__ == "__main__":
 
 
             login_val = log.login(account=account_no, password=password)
-
+            print(login_val)
             while login_val:
                 print(*operations)
                 try:
@@ -58,7 +58,7 @@ if __name__ == "__main__":
                         print(t.transfer(account=account_no, to_account=receiver_acc, amount=transfer_amount))
 
                     elif choice == 5:
-                        print(d.ministatement(account=account_no))
+                        ministatement.get_mini_statement(account=account_no)
 
                     elif choice == 6:
                         d.logout()
@@ -71,6 +71,8 @@ if __name__ == "__main__":
                 except (InvalidAmountError, InsufficientBalanceError,
                     InvalidAccountError, AuthenticationError) as e:
                     print(f"Error: {e}")
+            else:
+                print("Invalid account number or password. Please try again.")
         elif choice == 2:
             account_no = int(input("Please enter your account number: "))
             password = input("Please enter Password: ")
