@@ -83,7 +83,7 @@ if __name__ == "__main__":
                 reg_obj = Register(account=account_no, password=password, email=email, amount=deposite_amount)
                 print(reg_obj.register_account())
                 # adding depostite amount 
-                print(deposite.deposite(account=account_no, amount=deposite_amount))
+                # print(deposite.deposite(account=account_no, amount=deposite_amount))
 
 
     except ValueError:
