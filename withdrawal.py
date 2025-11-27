@@ -1,7 +1,7 @@
 
 from database.reduce_amount import ReduceAmount
 
-import data as d
+
 from exception import InvalidAccountError, InsufficientBalanceError, InvalidAmountError
 
 def withdraw(account: int, amount: int):

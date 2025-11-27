@@ -1,4 +1,4 @@
-import data as d
+import logout 
 import balance as b
 import deposite 
 import withdrawal as w
@@ -61,8 +61,7 @@ if __name__ == "__main__":
                         ministatement.get_mini_statement(account=account_no)
 
                     elif choice == 6:
-                        d.logout()
-                        print("Logged out successfully.")
+                        logout.logout()
                         break
                 
                     else:

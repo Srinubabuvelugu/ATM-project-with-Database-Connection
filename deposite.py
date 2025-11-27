@@ -1,4 +1,4 @@
-import data as d
+
 from database.database import database, cursor
 from database.add_amount import AddAmount
 

@@ -1,4 +1,4 @@
-import data as d
+
 from database.amount_fetch import AmountFetch
 def balance(account:int):
     try:
